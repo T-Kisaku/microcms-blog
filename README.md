@@ -7,9 +7,15 @@ Example of this repository is [here](https://skill-blog.vercel.app/)
 ### 1. Set secret to github actions
 | Required | Variables | Description |
 | --- | --- | --- |
+| [x] | VERCEL_TOKEN | You create from [here](https://vercel.com/account/tokens) |
+| [x] | VERCEL_ORG_ID |  |
+| [x] | VERCEL_PROJECT_ID |  |
 | [x] | MICRO_CMS_SERVICE_KEY | YOUR_DOMAIN is the XXXX part of XXXX.microcms.io |
-| [x] | MICRO_CMS_API_KEY diff | Your api key |
+| [x] | MICRO_CMS_API_KEY | Your api key |
 | [ ] | NEXT_PUBLIC_GOOGLE_ANALYTICS_ID | Google analytics id |
+
+
+
 
 Set secret value and key to github actions in your project according [here](https://docs.github.com/en/actions/security-guides/encrypted-secrets) and you can set variables from https://github.com/$user/$project/settings/secrets
 
@@ -26,17 +32,3 @@ In root directory with terminal.
 yarn && yarn dev
 ```
 Completed!!
-
-
-
-MICRO_CMS_API_KEY
-Updated 8 hours ago
-MICRO_CMS_SERVICE_KEY
-Updated 8 hours ago
-NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
-Updated 7 hours ago
-ORG_ID
-Updated 8 hours ago
-PROJECT_ID
-Updated 8 hours ago
-VERCEL_TOKEN

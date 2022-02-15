@@ -12,6 +12,15 @@ jobs:
         with:
           node-version: '16.x'
       - uses: actions/checkout@v2
+      - name: Make env file
+        uses: SpicyPizza/create-envfile@v1.2
+        with:
+          envkey_DEBUG: false
+          envkey_MICRO_CMS_SERVICE_KEY: ${{secrets.MICRO_CMS_SERVICE_KEY}}
+          envkey_MICRO_CMS_API_KEY: ${{secrets.MICRO_CMS_API_KEY}}
+          envkey_NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}}
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          file_name: .env
       - uses: amondnet/vercel-action@v20
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Optional

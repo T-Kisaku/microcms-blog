@@ -9,8 +9,9 @@ import { createEmotionCache } from '../../lib/emotion'
 import { NextSeo } from 'next-seo'
 import Header from '../components/organizations/Header'
 import Footer from '../components/organizations/Footer'
+
 import 'tailwindcss/tailwind.css'
-import '../styles/rich-editor.css'
+import 'github-markdown-css/github-markdown-light.css'
 
 import usePageView from '../hooks/usePageView'
 

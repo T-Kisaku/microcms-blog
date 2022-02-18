@@ -24,7 +24,7 @@ import {
 
 interface IdProps {
   blog: Awaited<ReturnType<typeof getBlogById>>
-  toc: string
+  toc?: string
 }
 
 
@@ -38,29 +38,28 @@ const Id: NextPage<IdProps> = ({ blog, toc }) => {
       />
       <div className="top-0 sticky md:hidden bg-white h-10 text-center" {...bindToggle(tocPopupState)}>
         Table of contents
-          {tocPopupState.isOpen
-            ? <ExpandLess />
-            : <ExpandMore />
-          }
+        {tocPopupState.isOpen
+          ? <ExpandLess />
+          : <ExpandMore />
+        }
       </div>
-        <Popper  {...bindPopper(tocPopupState)} >
-        <Markdown html={toc} className="py-5"/>
-        </Popper>
+      <Popper  {...bindPopper(tocPopupState)} >
+        {toc && <Markdown html={toc} className="py-5" />}
+      </Popper>
       <Container>
         <Stack component="header" justifyContent="center" spacing={4}>
           <Typography variant="h5" textAlign="center" fontWeight={900}>
             {blog.title}
           </Typography>
-          <span>
-            <span className="text-center">公開日:{convertUTC(blog.publishedAt)}</span>
-            <span>更新日:{convertUTC(blog.updatedAt)}</span>
-          </span>
-
+          <div className="flex justify-center sm:flex-col text-center space-x-4 text-slate-500">
+            <div>Published at {convertUTC(blog.publishedAt)}</div>
+            <div>Latest updated at {convertUTC(blog.updatedAt)}</div>
+          </div>
         </Stack>
-        <div className='flex justify-between'>
-          <Markdown html={blog.body} className="sm:w-full md:w-article mt-24 p-5" />
+        <div className='flex justify-between  mt-24'>
+          <Markdown html={blog.body} className="sm:w-full md:w-article p-5" />
           <aside className="w-table-of-content sm:hidden" >
-            <Markdown html={toc} className="py-5" />
+            {toc && <Markdown html={toc} className="py-5" />}
           </aside>
         </div>
       </Container>
@@ -88,7 +87,7 @@ export const getStaticProps: GetStaticProps<IdProps> = async (ctx) => {
     blog = { ...fetchedBlog, body: String(convertedBody) },
     toc = await extractTocFromMarkdown(fetchedBlog.body)
 
-  return { props: { blog, toc: String(toc) } }
+  return { props: { blog, toc } }
 }
 
 

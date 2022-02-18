@@ -33,22 +33,24 @@ export default function MyApp(props: MyAppProps) {
   usePageView()
 
   return (
-    // back-ground-color's settings is _document.tsx
-    <div className="w-screen h-screen">
-      <CacheProvider value={emotionCache}>
-        <NextSeo
-          title="Skill Blog"
-          description="技術系ブログ"
-        />
-        <Head>
-          {/* <title>{routes[router.pathname] || 'Pomofai'}</title> */}
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <CssBaseline />
-        <Header />
-        <Component {...pageProps} />
-        <Footer className="mt-20" />
-      </CacheProvider>
-    </div>
+    <>
+      <NextSeo
+        title="Skill Blog"
+        description="技術系ブログ"
+      />
+      <Head>
+        {/* <title>{routes[router.pathname] || 'Pomofai'}</title> */}
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      {/* back-ground-color's settings is _document.tsx */}
+      <div className="flex flex-col h-screen justify-between">
+        <CacheProvider value={emotionCache}>
+          <CssBaseline />
+          <Header />
+          <Component {...pageProps} />
+          <Footer className="mt-20 relative bottom-0" />
+        </CacheProvider>
+      </div>
+    </>
   )
 }

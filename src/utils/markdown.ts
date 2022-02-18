@@ -31,7 +31,7 @@ export default function remarkToc(options: Options = { maxDepth: 3 }) {
         // @ts-ignore
         const isExistedHeading = Boolean(node.children.find(x => Boolean(x.depth)))
 
-        if(isExistedHeading) node.children.unshift(tocAst)
+        if (isExistedHeading) node.children.unshift(tocAst)
 
         const result = toc(
             node,
@@ -56,19 +56,24 @@ export default function remarkToc(options: Options = { maxDepth: 3 }) {
 }
 
 export const
-    markdownToHtml = async (body: string) => await unified()
-        .use(parseMarkdown)
-        .use(slug)
-        .use(gfm)
-        .use(remarkRehype)
-        .use(html)
-        .process(body),
+    markdownToHtml = async (body: string) => String(
+        await unified()
+            .use(parseMarkdown)
+            .use(slug)
+            .use(gfm)
+            .use(remarkRehype)
+            .use(html)
+            .process(body)
+    ),
 
     extractTocFromMarkdown = async (body: string) => {
         const tocMarkdown = await remark()
             .use(remarkToc)
             .process(body)
 
-        const tocHtml = await markdownToHtml(String(tocMarkdown))
+        const tocHtml = Boolean(tocMarkdown)
+            ? String(await markdownToHtml(String(tocMarkdown)))
+            : undefined
+
         return tocHtml
     }

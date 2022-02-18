@@ -22,18 +22,13 @@ const Home: NextPage<HomeProps> = ({ blogList }) => {
         title="Skill Blog"
         description="Skill Blogのホームページ"
       />
-      <Container innerDivProps={{ className: 'grid grid-cols-2 lg:grid-cols-3' }}>
+      <Container innerDivProps={{ className: 'px-3 grid gap-4 grid-cols-2 lg:grid-cols-3' }}>
         {blogList.contents.map((blog, key) => (
-          <Card
-            key={key}
-            className="mx-2 sm:mx-4 mb-6"
-            onClick={() => router.push('/blog/' + blog.id)}
-          >
-            <CardHeader />
-            <CardContent>
-              <p>{blog.title}</p>
-              <Typography variant="subtitle2" className="text-slate-500">更新日：{convertUTC(blog.updatedAt)}</Typography>
-              <div className="flex" >
+          <Card key={key} onClick={() => router.push('/blog/' + blog.id)}>
+            <CardContent className="h-full flex flex-col justify-between space-y-2">
+              <div>{blog.title}</div>
+              <div>
+              <Typography variant="subtitle2" className="text-slate-500">Published at {convertUTC(blog.publishedAt)}</Typography>
                 {blog.tag_list.map((tag, tagKey) => (
                   <Chip key={tagKey} label={tag.name} size="small" />
                 ))}

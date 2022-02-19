@@ -5,10 +5,10 @@ import Markdown from '../components/atoms/Markdown'
 import {markdownToHtml} from '../utils/markdown'
 
 
-export interface editorProps{
+export interface EditorProps{
 }
 
-const editor: React.FC<editorProps> = (props) => {
+const Editor: React.FC<EditorProps> = (props) => {
     const
         [markdown, setMarkdown] = React.useState(''),
         [markdownHtml, setMarkdownHtml] = React.useState('')
@@ -30,4 +30,4 @@ const editor: React.FC<editorProps> = (props) => {
     )
 }
 
-export default editor
+export default Editor

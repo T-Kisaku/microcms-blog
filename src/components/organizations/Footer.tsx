@@ -35,9 +35,10 @@ const Footer: React.FC<FooterProps> = (props) => {
             <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
               About this blog
             </h6>
-            {linkList.map(link => (
+            {linkList.map((link, key) => (
               <p
                 className="mb-4 text-gray-600"
+                key={key}
                 onClick={() => {
                   if (link.target) {
                     window.open(link.href, '_blank')

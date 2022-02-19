@@ -19,7 +19,7 @@ export type FooterProps = DivProps
 const Footer: React.FC<FooterProps> = (props) => {
   const router = useRouter()
   return (
-    <footer className="text-center lg:text-left bg-white text-gray-600">
+    <footer {...props} className={`text-center lg:text-left bg-white text-gray-600 ${props.className}`}>
       <div className="mx-6 py-10 text-center md:text-left">
         <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           <CardHeader

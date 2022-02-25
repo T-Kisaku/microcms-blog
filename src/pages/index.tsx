@@ -1,11 +1,11 @@
 import type { GetStaticProps, NextPage } from 'next'
-import {useState} from 'react'
+import { useState } from 'react'
 
 import { Card, CardContent, CardHeader, Chip, Typography, FormControl, InputLabel, Select, Box, OutlinedInput, MenuItem, SelectChangeEvent } from '@mui/material'
 import Container from '../components/organizations/Container'
 
 import { useRouter } from 'next/router'
-import { getBlogList, getTagList,Blog, Tag } from '../../lib/microcms'
+import { getBlogList, getTagList, Blog, Tag } from '../../lib/microcms'
 import { NextSeo } from 'next-seo'
 import { convertUTC } from '../../lib/dayjs'
 
@@ -29,9 +29,13 @@ const Home: NextPage<HomeProps> = ({ blogList, tagList }) => {
     );
   };
 
-  const filteredBlogList = blogList.contents.filter(blog => {
-    blog.tag_list.map(tag => tag.name)
-  })
+  const filteredBlogList = tagFilterValue.length === 0
+    ? blogList.contents
+    : blogList.contents
+      .filter(blog => !tagFilterValue
+        .map(tagName => blog.tag_list.map(tag => tag.name).includes(tagName))
+        .includes(false)
+      )
 
   return (
     <>
@@ -40,38 +44,38 @@ const Home: NextPage<HomeProps> = ({ blogList, tagList }) => {
         description="Skill Blogのホームページ"
       />
       <Container>
-      <div className="pl-3 mb-4 w-72">
-      <FormControl fullWidth>
-        <InputLabel id="demo-multiple-chip-label">Tag</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          fullWidth
-          multiple
-          value={tagFilterValue}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Tag" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-        >
-          {tagList.contents.map((tag) => (
-            <MenuItem
-              key={tag.name}
-              value={tag.name}
+        <div className="pl-3 mb-4 w-72">
+          <FormControl fullWidth>
+            <InputLabel id="demo-multiple-chip-label">Tag</InputLabel>
+            <Select
+              labelId="demo-multiple-chip-label"
+              id="demo-multiple-chip"
+              fullWidth
+              multiple
+              value={tagFilterValue}
+              onChange={handleChange}
+              input={<OutlinedInput id="select-multiple-chip" label="Tag" />}
+              renderValue={(selected) => (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  {selected.map((value) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </Box>
+              )}
             >
-              {tag.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      </div>
+              {tagList.contents.map((tag) => (
+                <MenuItem
+                  key={tag.name}
+                  value={tag.name}
+                >
+                  {tag.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
         <div className="px-3 grid gap-4 grid-cols-2 lg:grid-cols-3">
-          {blogList.contents.map((blog, key) => (
+          {filteredBlogList.map((blog, key) => (
             <Card key={key} onClick={() => router.push('/blog/' + blog.id)}>
               <CardContent className="h-full flex flex-col justify-between space-y-2">
                 <div>{blog.title}</div>

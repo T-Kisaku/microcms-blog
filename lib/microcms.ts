@@ -21,12 +21,15 @@ const client = createClient({
 })
 
 const endpoint = {
-    blog: 'blog-list'
+    blog: 'blog-list',
+    tagList: 'tag-list'
 }
 
 
 export const
     getBlogById = (contentId: string) => client.getListDetail<Blog>({ endpoint: endpoint.blog, contentId }),
-    getBlogList = () => client.getList<Blog>({ endpoint: endpoint.blog })
+    getBlogList = () => client.getList<Blog>({ endpoint: endpoint.blog }),
+    getTagById = (contentId: string) => client.getListDetail<Tag>({ endpoint: endpoint.tagList,  contentId}),
+    getTagList = () => client.getList<Tag>({endpoint: endpoint.tagList})
 
 

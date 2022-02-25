@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo'
 import { extractTocFromMarkdown, markdownToHtml } from '../../utils/markdown'
 
 
-import { Typography, Stack, Popper } from '@mui/material'
+import { Typography, Stack, Popper, Chip } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
@@ -59,6 +59,12 @@ const Id: NextPage<IdProps> = ({ blog, toc }) => {
         <div className='flex justify-between  mt-24'>
           <Markdown html={blog.body} className="sm:w-full md:w-article p-5" />
           <aside className="w-table-of-content sm:hidden" >
+            <div className="bg-white rounded-xl p-5 mb-10">
+              <div className="mb-4">Tag</div>
+              {blog.tag_list.map((tag, key) => (
+                <Chip key={key} label={tag.name} className="mr-3" />
+              ))}
+            </div>
             {toc && <Markdown html={toc} className="py-5" />}
           </aside>
         </div>

@@ -9,7 +9,7 @@ export type MarkdownProps = DivProps & {
 const Markdown: React.FC<MarkdownProps> = (props) =>
     <div
         {...props}
-        className={`markdown-body ${props.className}`}
+        className={`markdown-body rounded-xl ${props.className}`}
         dangerouslySetInnerHTML={{__html: props.html}}
     />
 

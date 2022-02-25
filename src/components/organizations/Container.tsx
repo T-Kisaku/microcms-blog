@@ -11,7 +11,7 @@ const Container: React.FC<ContainerProps> = ({ rootProps, innerDivProps, childre
     return (
         <div
             {...rootProps}
-            className={(rootProps?.className || '') + ' flex justify-center mt-10'}
+            className={(rootProps?.className || '') + ' flex justify-center mt-20'}
         >
             <div
                 {...innerDivProps}
